@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #272343;
+    --card: #443D72;
+    --text: #fff;
+
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto Slab", serif;
+    background-color: var(--bg);
+}
+
+.intro {
+    margin: 1rem;
+    padding: 0.5rem;
+    background-color: var(--card);
+    color: black;
+}
+
+.intro .intro__header {
+    text-align: center;
+}
+
+.container {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-top: 1rem;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    
+}
+
+.card:hover {
+    background-color: rgb(68, 68, 68);
+}
+
+.card__header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: #f5f5f5;
+    padding: 0.5;
+    text-align: center;
+}
+

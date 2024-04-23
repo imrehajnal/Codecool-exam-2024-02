@@ -6,8 +6,11 @@
 // - Words are separated by spaces, and the sentence may contain leading or trailing spaces.
 // - Consider only spaces as word separators (no punctuation splitting).
 export function reverseWords(sentence) {
+  const wordsReverse = sentence.split(/\s+/).reverse().join(" ").trim();
+  return wordsReverse;
 }
 
+reverseWords("");
 
 // Task: Word Frequency Counter
 // Given a string of text, write a function `wordFrequency` that counts the
@@ -20,7 +23,29 @@ export function reverseWords(sentence) {
 // - The function should not count punctuation as part of the words.
 // - Return the result with words in lowercase.
 export function wordFrequency(text) {
+  const countedWords = {};
+  const words = text.toLowerCase().split(" ");
+
+  for (let word of words) {
+    let cleanedWord = "";
+    for (let i = 0; i < word.length; i++) {
+      if (word.charCodeAt(i) >= 97 && word.charCodeAt(i) <= 122) {
+        cleanedWord += word[i];
+      }
+    }
+    if (cleanedWord) {
+      if (cleanedWord in countedWords) {
+        countedWords[cleanedWord]++;
+      } else {
+        countedWords[cleanedWord] = 1;
+      }
+    }
+  }
+
+  return countedWords;
 }
+
+wordFrequency("It's a good, good day!");
 
 // Task: Top N Frequent Words
 // Write a function `topNFrequentWords(text, n)` that finds the top `n` most frequent words in a given text.
@@ -32,4 +57,51 @@ export function wordFrequency(text) {
 // - Words are separated by spaces, and the text may contain punctuation.
 // - Ignore punctuation, and consider only alphabetic characters for word separation.
 export function topNFrequentWords(text, n) {
+  let wordCounts = {};
+  text = text.toLowerCase();
+  let words = text.split(" ");
+
+  for (let word of words) {
+    let cleanWord = "";
+    for (let i = 0; i < word.length; i++) {
+      if (word[i] >= "a" && word[i] <= "z") {
+        cleanWord += word[i];
+      }
+    }
+    if (cleanWord) {
+      if (cleanWord in wordCounts) {
+        wordCounts[cleanWord]++;
+      } else {
+        wordCounts[cleanWord] = 1;
+      }
+    }
+  }
+
+  let tuples = [];
+  for (let word in wordCounts) {
+    tuples.push([word, wordCounts[word]]);
+  }
+  tuples.sort((a, b) => {
+    if (a[1] === b[1]) {
+      return a[0] < b[0] ? -1 : 1;
+    }
+    return b[1] - a[1];
+  });
+
+  let result = [];
+  for (let i = 0; i < n; i++) {
+    result.push(tuples[i]);
+  }
+
+  if (text === "") {
+    return [];
+  }
+
+  console.log(result);
+  return result;
 }
+
+topNFrequentWords(
+  "The quick brown fox jumps over the lazy dog. The lazy dog barks.",
+  3
+);
